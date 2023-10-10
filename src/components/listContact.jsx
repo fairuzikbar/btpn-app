@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -14,10 +13,25 @@ const ListContact = () => {
 
     const deleteData = async (id) => {
         try {
-          await axios.delete(`https://contact.herokuapp.com/contact/${id}`);
-          getData();
+            const headers = {
+                'Content-Type': 'application/json',
+            }
+            await axios.delete(`${url}/${id}`, {
+                headers: headers
+            });
+            getData();
         } catch (error) {
-          console.log(error);
+            if (error.response) {
+                // The server responded with an error status code (e.g., 400)
+                console.error("Server Error Data:", error.response.data);
+                console.error("Server Error Status:", error.response.status);
+            } else if (error.request) {
+                // The request was made, but there was no response from the server
+                console.error("No Response from Server:", error.request);
+            } else {
+                // Something else went wrong
+                console.error("Error:", error.message);
+            }
         }
     };
 
@@ -37,17 +51,15 @@ const ListContact = () => {
                 <div className="card-body">
                     <h5 className="card-title">{contact.firstName} {contact.lastName}</h5>
                     <p className="card-text">{contact.age} year</p>
-                        <input type="button" value="Delete" onClick={() => deleteData(contact.id)}/>
-                        <Link to={`/edit/${contact.id}`}>
-                            <input type="submit" value="Edit"/>
-                        </Link>
-                        
+                    <Link to={`/edit/${contact.id}`}>
+                        <input type="submit" className="mx-1" value="Edit"/>
+                    </Link>
+                    <input type="button" value="Delete" className="mx-1" onClick={() => deleteData(contact.id)}/>                        
                 </div>
                 </div>
             </div>
             </div>
         ))}
-        
     </>
     )
 }

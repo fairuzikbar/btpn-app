@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AddContact = () => {
     const url = 'https://contact.herokuapp.com/contact';
@@ -37,13 +36,16 @@ const AddContact = () => {
                 <input type="text" className="form-control" id="lastName" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)}/>
                 </div>
                 <div className="mb-3">
-                <input type="number" className="form-control" id="age" placeholder="age" onChange={(e) => setAge(e.target.value)}/>
+                <input type="number" className="form-control" id="age" placeholder="Age" onChange={(e) => setAge(e.target.value)}/>
                 </div>
                 <div className="mb-3">
                 <input type="text" className="form-control" id="photo" placeholder="Link Photo" onChange={(e) => setPhoto(e.target.value)}/>
                 </div>
                 <div className="mb-3">
                 <input type="submit" id="photo" value="Submit"/>
+                <Link to={"/"}>
+                    <input type="submit" className="mx-1" value="Back"/>
+                </Link>
                 </div>
             </form>
         </>

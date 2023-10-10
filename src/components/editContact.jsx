@@ -20,10 +20,12 @@ const EditContact = () => {
         e.preventDefault();
         try {
             await axios.patch(`${url}/${id}`, {
-                firstName,
-                lastName,
-                age,
-                photo
+                data: [{
+                    firstName,
+                    lastName,
+                    age,
+                    photo
+                }]
             });
             navigate('/');
         } catch (error) {
@@ -38,6 +40,8 @@ const EditContact = () => {
         setAge(response.data.data.age);
         setPhoto(response.data.data.photo);
     };
+
+    console.log(id)
 
     return (
         <>

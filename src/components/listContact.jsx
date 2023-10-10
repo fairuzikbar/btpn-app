@@ -21,20 +21,6 @@ const ListContact = () => {
         }
     };
 
-    const updateData = async (id) => {
-        try {
-            await axios.patch(`${url}/${id}`, {
-                firstName,
-                lastName,
-                age,
-                photo
-            });
-            navigate('/');
-        } catch (error) {
-          console.log(error);
-        }
-    };
-
     useEffect(() => {
         getData();
     }, [])
@@ -52,9 +38,8 @@ const ListContact = () => {
                     <h5 className="card-title">{contact.firstName} {contact.lastName}</h5>
                     <p className="card-text">{contact.age} year</p>
                         <input type="button" value="Delete" onClick={() => deleteData(contact.id)}/>
-                        {contact.id}
                         <Link to={`/edit/${contact.id}`}>
-                            <input type="submit" value="Update" onClick={() => updateData(contact.id)}/>
+                            <input type="submit" value="Edit"/>
                         </Link>
                         
                 </div>
